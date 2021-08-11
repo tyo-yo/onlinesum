@@ -254,8 +254,6 @@ if __name__ == "__main__":
     parser.add_argument("--voice-channel-id", type=int)
     args = parser.parse_args()
 
-    discord_bot_token = open(args.discord_bot_token_file).read().strip()
-
     transcriber = (
         GoogleSpeechToText(
             endpoint=args.endpoint,
@@ -273,4 +271,4 @@ if __name__ == "__main__":
         voice_channel_name=args.voice_channel_name,
         transcriber=transcriber,
     )
-    bot.run(discord_bot_token)
+    bot.run(os.getenv("DISCORD_API_TOKEN"))
