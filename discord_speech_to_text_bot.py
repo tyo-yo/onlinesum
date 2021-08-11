@@ -1,20 +1,17 @@
 # needed until the fork is merged upstream
-import sys
-
-sys.path.insert(0, "discord.py")
-
 import argparse
 import asyncio
 import os
 import random
+import sys
 import time
 import wave
 
 import google.cloud.speech_v1
-import google.cloud.speech_v1.gapic.transports.speech_grpc_transport
 import google.oauth2.service_account
-import grpc
 import numpy as np
+
+sys.path.insert(0, "discord.py")
 
 import discord
 
@@ -25,33 +22,11 @@ class GoogleSpeechToText:
             google.oauth2.service_account.Credentials.from_service_account_file(
                 api_credentials
             )
-            if api_credentials
-            else grpc.local_channel_credentials()
-        )
-        LocalSpeechGrpcTransport = type(
-            "LocalSpeechGrpcTransport",
-            (
-                google.cloud.speech_v1.gapic.transports.speech_grpc_transport.SpeechGrpcTransport,
-            ),
-            dict(
-                create_channel=lambda self, address, credentials, **kwargs: grpc.secure_channel(
-                    address, credentials, **kwargs
-                )
-            ),
         )
         client_options = dict(api_endpoint=endpoint)
 
-        self.client = (
-            google.cloud.speech_v1.SpeechClient(
-                credentials=credentials, client_options=client_options
-            )
-            if api_credentials
-            else google.cloud.speech_v1.SpeechClient(
-                transport=LocalSpeechGrpcTransport(
-                    address=endpoint, credentials=credentials
-                ),
-                client_options=client_options,
-            )
+        self.client = google.cloud.speech_v1.SpeechClient(
+            credentials=credentials, client_options=client_options
         )
         self.lang = lang
         self.recognition_model = recognition_model
@@ -232,7 +207,6 @@ class DiscordBotClient(discord.Client):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--discord-bot-token-file", required=True)
     parser.add_argument("--google-api-credentials-file", required=True)
     parser.add_argument("--debug", help="debug dir")
     parser.add_argument(
