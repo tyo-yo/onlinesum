@@ -1,3 +1,7 @@
+import sys
+
+sys.path.insert(0, "discord.py")
+
 import logging
 import os
 
