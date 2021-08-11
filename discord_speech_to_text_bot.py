@@ -211,7 +211,7 @@ if __name__ == "__main__":
     parser.add_argument("--debug", help="debug dir")
     parser.add_argument(
         "--lang",
-        default="ru-RU",
+        default="ja-JP",
         help="see http://g.co/cloud/speech/docs/languages for a list of supported languages",
     )
     parser.add_argument(
