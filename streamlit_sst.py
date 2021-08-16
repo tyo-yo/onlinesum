@@ -1,23 +1,14 @@
 import logging
 import logging.handlers
 import queue
-import threading
 import time
 import urllib.request
-from collections import deque
 from pathlib import Path
-from typing import List
 
-import av
 import numpy as np
 import pydub
 import streamlit as st
-from streamlit_webrtc import (
-    AudioProcessorBase,
-    ClientSettings,
-    WebRtcMode,
-    webrtc_streamer,
-)
+from streamlit_webrtc import ClientSettings, WebRtcMode, webrtc_streamer
 
 HERE = Path(__file__).parent
 
