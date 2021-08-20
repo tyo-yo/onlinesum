@@ -17,6 +17,11 @@ deepspeech = "^0.9.3"
 pydub = "^0.25.1"
 streamlit = "^0.86.0"
 streamlit-webrtc = "^0.26.0"
+jsonlines = "^2.0.0"
+gensim = "^4.0.1"
+mecab-python3 = "^1.0.4"
+sklearn = "^0.0"
+sumy = "^0.8.1"
 
 [tool.poetry.dev-dependencies]
 pysen = {extras = ["lint"], version = "^0.9.1"}
